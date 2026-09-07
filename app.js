@@ -1,7 +1,13 @@
 
 // krishsanv - Connected to Render Backend
 // FIX 1: Auto close / reload rokne ke liye
-// Purana (PeerJS free cloud)
+// Naya (Tera Render backend)
+const peer = new Peer(undefined, {
+  host: 'krishsanv-backend.onrender.com', // Tera Render link (https hata ke)
+  port: 443,
+  path: '/myapp',
+  secure: true
+});
 const peer = new Peer();
 window.addEventListener('beforeunload', (e) => {
   // Agar call chal rahi hai toh confirm pucho
