@@ -74,7 +74,7 @@ let currentCall = null;
 const ROOM_ID_LENGTH = 8;
 
 // RENDER BACKEND URL
-const BACKEND_URL = 'https://krishsanv-backend.onrender.com';
+const BACKEND_URL = "https://krishsanv-backend.onrender.com";
 const PEER_HOST = 'krishsanv-backend.onrender.com';
 
 console.log('krishsanv - Connecting to Render Backend:', BACKEND_URL);
