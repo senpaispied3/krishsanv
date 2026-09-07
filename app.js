@@ -1,5 +1,62 @@
 
 // krishsanv - Connected to Render Backend
+// FIX 1: Auto close / reload rokne ke liye
+window.addEventListener('beforeunload', (e) => {
+  // Agar call chal rahi hai toh confirm pucho
+  if (typeof isInCall !== 'undefined' && isInCall) {
+    e.preventDefault();
+    e.returnValue = 'Call chal rahi hai - band karna hai?';
+  }
+});
+
+// FIX 2: Peer disconnect auto reconnect
+let reconnectAttempts = 0;
+
+function setupPeerFixes() {
+  if(typeof peer !== 'undefined' && peer) {
+    peer.on('disconnected', () => {
+      console.log('Disconnected - reconnecting...');
+      if(reconnectAttempts < 5) {
+        setTimeout(() => {
+          peer.reconnect();
+          reconnectAttempts++;
+        }, 1000);
+      }
+    });
+
+    peer.on('close', () => {
+      console.log('Connection closed');
+    });
+
+    peer.on('error', (err) => {
+      console.error('Peer error:', err.type);
+      // Site band mat karo - sirf error dikhao
+      if(err.type === 'network' || err.type === 'server-error') {
+        setTimeout(() => peer.reconnect(), 2000);
+      }
+    });
+  }
+}
+
+// Page load pe setup karo
+window.addEventListener('load', setupPeerFixes);
+
+// FIX 3: Button se form submit rokna (auto band hone ka main reason)
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(btn => {
+    if(!btn.type) btn.type = 'button'; // Auto type fix
+  });
+
+  // Form submit rokna
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Page reload rokega
+      return false;
+    });
+  });
+});
 let currentRoomId = null;
 let localStream = null;
 let remoteStream = null;
