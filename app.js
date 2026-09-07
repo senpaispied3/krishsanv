@@ -93,6 +93,16 @@ document.getElementById('roomInfo').classList.remove('hidden');
 document.getElementById('waiting').style.display='flex';
 myPeer=new Peer(PEER_CONFIG); // random id for joiner - IMPORTANT FIX
 myPeer.on('open',myId=>{
+// Abhi ye hai (PeerJS Cloud):
+myPeer = new Peer(currentRoomId, {config:{iceServers:[...]}})
+
+// Backend lagne ke baad ye hoga:
+myPeer = new Peer(currentRoomId, {
+  host: 'krishsanv-backend.onrender.com',
+  port: 443,
+  secure: true,
+  path: '/peerjs'
+})
 console.log('My ID',myId,'calling',target);
 const call=myPeer.call(target,localStream);
 if(!call){document.getElementById('connStatus').innerText='Room nahi mila! Room No sahi hai?';return;}
