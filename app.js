@@ -1,6 +1,8 @@
 
 // krishsanv - Connected to Render Backend
 // FIX 1: Auto close / reload rokne ke liye
+// Purana (PeerJS free cloud)
+const peer = new Peer();
 window.addEventListener('beforeunload', (e) => {
   // Agar call chal rahi hai toh confirm pucho
   if (typeof isInCall !== 'undefined' && isInCall) {
