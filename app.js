@@ -39,14 +39,14 @@ async function createRoom() {
   showRoomId(roomId);
   await startCall(roomId, true);
   
-  // Save to backend
+  // Save room to the Netlify Database
   try {
-    fetch(BACKEND_URL + '/api/rooms', {
+    fetch('/api/rooms', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({roomId: roomId, created: new Date()})
+      body: JSON.stringify({roomId: roomId})
     });
-  } catch(e) { console.log('Backend save optional'); }
+  } catch(e) { console.log('Room save optional'); }
   
   return roomId;
 }
