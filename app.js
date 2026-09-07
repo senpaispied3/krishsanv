@@ -91,7 +91,19 @@ function showRoomId(id) {
 }
 
 // Create Room
-async function createRoom() {
+async function createRoom(function createRoom() {
+  // FIX: Page reload rokna
+  event && event.preventDefault();
+  
+  // Tera purana code yaha se start...
+  // ...
+}
+
+function joinRoom() {
+  event && event.preventDefault();
+  
+  // Tera purana code...
+}) {
   const roomId = generateRoomId();
   showRoomId(roomId);
   await startCall(roomId, true);
